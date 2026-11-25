@@ -1,0 +1,6 @@
+{"event": "login_failed", "timestamp": "2026-11-25T14:00:00.000Z", "ip": "192.0.2.10", "account": "user01", "surface": "api"}
+{"event": "login_failed", "timestamp": "2026-11-25T14:00:00.250Z", "ip": "192.0.2.10", "account": "user01", "surface": "web"}
+{"event": "login_failed", "timestamp": "2026-11-25T14:00:00.500Z", "ip": "192.0.2.10", "account": "user01", "surface": "api"}
+{"event": "login_failed", "timestamp": "2026-11-25T14:00:00.750Z", "ip": "192.0.2.10", "account": "user01", "surface": "web"}
+{"event": "login_failed", "timestamp": "2026-11-25T14:00:01.000Z", "ip": "192.0.2.10", "account": "user01", "surface": "api"}
+{"event": "login_failed", "timestamp": "2026-11-25T14:00:01.250Z", "ip": "192.0.2.10", "account": "user01", "surface": "web"}

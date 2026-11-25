@@ -1,0 +1,45 @@
+{
+  "single_source": {
+    "events": 6,
+    "ip_alert": true,
+    "account_alert": true,
+    "ip_threshold": ["192.0.2.10"],
+    "account_threshold": ["user01"],
+    "campaign_count": 0
+  },
+  "distributed_spray": {
+    "events": 21,
+    "ip_alert": false,
+    "account_alert": false,
+    "ip_threshold": [],
+    "account_threshold": [],
+    "campaign_count": 1,
+    "expected_sources": [
+      "192.0.2.10",
+      "192.0.2.11",
+      "192.0.2.12",
+      "192.0.2.13",
+      "192.0.2.14",
+      "192.0.2.15",
+      "192.0.2.16"
+    ],
+    "expected_targets": [
+      "user01",
+      "user02",
+      "user03",
+      "user04",
+      "user05",
+      "user06",
+      "user07"
+    ],
+    "expected_surfaces": ["api", "web"]
+  },
+  "control_disjoint": {
+    "events": 21,
+    "ip_alert": false,
+    "account_alert": false,
+    "ip_threshold": [],
+    "account_threshold": [],
+    "campaign_count": 0
+  }
+}
