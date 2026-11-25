@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f4f5ef">
+  <title>IPS Lab · Password Spraying</title>
+  <link rel="stylesheet" href="/dashboard.css">
+  <script defer src="/dashboard.js"></script>
+</head>
+<body>
+  <header class="masthead">
+    <div class="shell masthead-inner">
+      <div class="identity">
+        <span class="mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M12 2.7 20 6v6.1c0 4.7-3.3 7.4-8 9.2-4.7-1.8-8-4.5-8-9.2V6l8-3.3Z"/><path d="m8.7 12 2.2 2.2 4.5-4.5"/></svg></span>
+        <span>IPS<span class="identity-accent"> Lab</span></span>
+      </div>
+      <a class="header-link" href="#nhat-ky">Nhật ký <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 3v9m-4-4 4 4 4-4"/></svg></a>
+      <span class="lab-label"><span></span> Lab cục bộ</span>
+    </div>
+  </header>
+
+  <main class="shell">
+    <section class="intro" aria-labelledby="page-title">
+      <h1 id="page-title">Password spraying phân tán</h1>
+      <p>Phát lại log xác thực tổng hợp để so sánh bộ đếm với đồ thị và kiểm tra chính sách cấp phiên.</p>
+    </section>
+
+    <form class="controls" id="controls">
+      <div class="scenario-control">
+        <label for="scenario">Kịch bản</label>
+        <select id="scenario" name="scenario">
+          <option value="spray">Spray phân tán</option>
+          <option value="control">Đối chứng ít trùng mục tiêu</option>
+          <option value="single">Đoán mật khẩu từ một IP</option>
+        </select>
+      </div>
+      <p id="scenario-description" class="scenario-description">7 IP chia lượt thử qua Web và API. Mỗi IP và mỗi tài khoản có 3 lượt sai.</p>
+      <label class="switch-label" for="enforce">
+        <input type="checkbox" id="enforce" role="switch" checked>
+        <span class="switch-track" aria-hidden="true"></span>
+        <span>IPS</span>
+      </label>
+      <button type="submit" class="run-button" id="run" disabled>
+        <svg viewBox="0 0 20 20" aria-hidden="true"><path d="m7 4 9 6-9 6V4Z"/></svg>
+        <span id="run-label">Phát lại log</span>
+      </button>
+    </form>
+
+    <div class="run-state" id="run-state" role="status">
+      <span class="state-dot"></span><span id="status-text">Đang kết nối với lab…</span>
+    </div>
+
+    <div class="workbench">
+      <section class="graph-panel" aria-labelledby="graph-title">
+        <div class="graph-heading">
+          <div>
+            <h2 id="graph-title">Đồ thị IP – tài khoản</h2>
+            <p>Mỗi đường nối là một cặp IP và tài khoản có lượt sai.</p>
+          </div>
+          <div class="legend" aria-label="Chú giải đồ thị">
+            <span><i class="legend-web"></i>Web</span>
+            <span><i class="legend-api"></i>API</span>
+            <span><i class="legend-alert"></i>Cụm cảnh báo</span>
+          </div>
+        </div>
+        <div class="graph-field">
+          <div class="graph-labels"><span>IP nguồn</span><span>Tài khoản</span></div>
+          <div class="graph-grid">
+            <div class="node-list" id="source-nodes" aria-label="IP nguồn"></div>
+            <div class="plot">
+              <svg viewBox="0 0 1000 700" preserveAspectRatio="none" id="edges" aria-hidden="true"></svg>
+              <span class="graph-empty" id="graph-empty">Phát lại log để xem các kết nối.</span>
+            </div>
+            <div class="node-list accounts" id="account-nodes" aria-label="Tài khoản đích"></div>
+          </div>
+        </div>
+        <div class="graph-foot"><span id="graph-selection">Chọn một IP hoặc tài khoản để lọc nhật ký.</span><button type="button" id="clear-filter" class="text-button" hidden>Bỏ lọc</button></div>
+      </section>
+
+      <aside class="results" aria-labelledby="results-title">
+        <h2 id="results-title">Kết quả phòng thủ</h2>
+        <dl class="signal-list">
+          <div><dt>Đếm theo IP <small>Ngưỡng 5</small></dt><dd id="ip-result" class="signal">Chờ chạy</dd></div>
+          <div><dt>Đếm theo tài khoản <small>Ngưỡng 5</small></dt><dd id="account-result" class="signal">Chờ chạy</dd></div>
+          <div><dt>Đồ thị <small>Web + API</small></dt><dd id="graph-result" class="signal">Chờ chạy</dd></div>
+        </dl>
+        <div class="session-heading">
+          <h3>Thử đăng nhập từ IP mới</h3>
+          <p>Kiểm tra chính sách cấp phiên cho <code id="probe-account">user01</code> từ IP mẫu <code id="probe-ip">192.0.2.50</code>.</p>
+        </div>
+        <ul class="session-list" id="session-list"><li class="session-empty">Kết quả Web, API và TOTP sẽ hiện ở đây.</li></ul>
+      </aside>
+    </div>
+
+    <section class="activity" id="nhat-ky" aria-labelledby="activity-title">
+      <div class="activity-heading"><h2 id="activity-title">Nhật ký đăng nhập</h2><span id="event-count">0 lượt sai</span></div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th scope="col">Lượt</th><th scope="col">Thời gian</th><th scope="col">IP nguồn</th><th scope="col">Tài khoản</th><th scope="col">Luồng</th><th scope="col">Kết quả</th></tr></thead>
+          <tbody id="events"><tr><td colspan="6" class="empty-row">Chưa có lượt đăng nhập nào.</td></tr></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+  <footer class="shell footer">Log tổng hợp · Thời gian mô phỏng · Nhóm 6</footer>
+</body>
+</html>

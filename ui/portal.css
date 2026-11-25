@@ -1,0 +1,31 @@
+.portal-brand { text-decoration: none; gap: 4px; }
+.portal-label { color: var(--muted); font-size: .875rem; }
+.portal-shell { width: min(100% - 48px, 920px); margin: min(12vh, 100px) auto 40px; }
+.portal-layout { display: grid; grid-template-columns: .95fr 1.05fr; border-radius: 16px; overflow: hidden; border: 1px solid var(--line); background: var(--white); }
+.portal-context, .portal-content { padding: 42px; }
+.portal-context { display: flex; flex-direction: column; justify-content: space-between; gap: 32px; background: var(--forest); color: var(--forest-ink); }
+.portal-context-title { font-size: 3rem; font-weight: 750; letter-spacing: -.035em; line-height: 1.05; }
+.portal-context p + p { color: var(--forest-muted); max-width: 31ch; }
+.portal-content { min-width: 0; }
+.portal-content h1 { font-size: 1.875rem; letter-spacing: -.03em; line-height: 1.15; }
+.portal-description { margin: 8px 0 20px; color: var(--muted); }
+.portal-form { display: grid; }
+.portal-form label { font-weight: 650; font-size: .875rem; margin-bottom: 5px; }
+.portal-form input:not([type="hidden"]) { font: inherit; width: 100%; height: 44px; border: 1px solid #aabaae; border-radius: 7px; padding: 8px 12px; color: var(--ink); caret-color: #31573c; margin-bottom: 14px; }
+.portal-submit { width: 100%; min-height: 44px; margin-top: 6px; }
+.portal-link { text-decoration: none; }
+.portal-error { background: #f9ebe7; color: #853b32; font-size: .875rem; padding: 10px 12px; border-radius: 7px; margin-bottom: 14px; }
+.portal-back { display: inline-block; margin-top: 15px; color: #31573c; font-size: .875rem; }
+.portal-record { margin-bottom: 16px; }
+.portal-record > div { border-top: 1px solid var(--line); padding: 9px 0; }
+.portal-record dt { color: var(--muted); font-size: .8125rem; }
+.portal-record dd { font-weight: 650; }
+@media (max-width: 660px) {
+  .portal-shell { width: calc(100% - 30px); margin-top: 22px; }
+  .portal-layout { grid-template-columns: 1fr; }
+  .portal-context, .portal-content { padding: 22px; }
+  .portal-context { gap: 8px; }
+  .portal-context-title { font-size: 1.625rem; }
+  .portal-context-title br { display: none; }
+  .portal-context p + p { font-size: .875rem; max-width: none; }
+}

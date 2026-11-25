@@ -1,0 +1,10 @@
+**
+!Dockerfile
+!detector.py
+!portal.py
+!server.py
+!ui/
+ui/*
+!ui/dashboard.css
+!ui/portal*.html
+!ui/portal.css

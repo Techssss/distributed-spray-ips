@@ -1,0 +1,10 @@
+<h1>Đăng nhập</h1>
+<p class="portal-description">Nhập thông tin tài khoản để mở hồ sơ.</p>
+$error
+<form class="portal-form" method="post" action="/web/login">
+  <label for="username">Tên tài khoản</label>
+  <input id="username" name="username" autocomplete="username" maxlength="64" required>
+  <label for="password">Mật khẩu</label>
+  <input id="password" name="password" type="password" autocomplete="current-password" maxlength="256" required>
+  <button class="run-button portal-submit" type="submit">Đăng nhập</button>
+</form>
